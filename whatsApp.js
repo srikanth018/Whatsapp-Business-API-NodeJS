@@ -1,38 +1,33 @@
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// Package
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 const express = require('express');
 const request = require('request');
 const bodyParser = require('body-parser');
 require('dotenv').config();
 const app = express();
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
 }));
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 app.get('/', (req, res) => {
     let resData = {
-        status: false,
-        answare: ''
-    }
-    resData.status = true;
-    resData.message = 'Hello Every One Form From Code 180. This API is working......';
+        status: true,
+        message: 'Hello Everyone from Code 180. This API is working...'
+    };
     return res.status(200).json(resData);
 });
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 app.get('/sendMessage', (req, res) => {
     let resData = {
         status: false,
         answare: ''
-    }
+    };
     try {
         const options = {
             method: 'POST',
             url: 'https://graph.facebook.com/v18.0/277207345475405/messages',
             headers: {
-                Authorization: process.env.SECRET_KEY,
+                Authorization: `Bearer ${process.env.SECRET_KEY}`,
                 'Content-Type': 'application/json'
             },
             body: {
@@ -50,7 +45,7 @@ app.get('/sendMessage', (req, res) => {
         };
         request(options, function(error, response, body) {
             if (error) throw new Error(error);
-            //+++++++++++++++++++++++++++++++++++++++++++++
+            
             resData.status = true;
             resData.respondData = body;
             return res.status(200).json(resData);
@@ -61,8 +56,7 @@ app.get('/sendMessage', (req, res) => {
         return res.status(200).json(resData);
     }
 });
-//+++++++++++++++++++++++++++++++++++++++++++++++++
-//+++++++++++++++++++++++++++++++++++++++++++++++++
+
 app.listen(3000, () => {
-    console.log("starting...");
+    console.log("Server started on port 3000...");
 });
