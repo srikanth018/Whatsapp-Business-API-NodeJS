@@ -30,7 +30,7 @@ app.get('/sendMessage', (req, res) => {
     try {
         const options = {
             method: 'POST',
-            url: 'https://graph.facebook.com/v17.0/108110622388455/messages',
+            url: 'https://graph.facebook.com/v18.0/277207345475405/messages',
             headers: {
                 Authorization: process.env.SECRET_KEY,
                 'Content-Type': 'application/json'
